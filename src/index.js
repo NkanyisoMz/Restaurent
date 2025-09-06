@@ -1,39 +1,36 @@
-import "./style.css";
-import loadHome from "./home.js";
-import loadMenu from "./menu.js";
-import loadContact from "./contact.js";
+import './style.css';
+import loadHome from './home.js';
+import loadMenu from './menu.js';
+import loadContact from './contact.js';
 
-function createNav() {
-  const nav = document.createElement("nav");
+// Create header + nav dynamically
+function createHeader() {
+  const header = document.createElement('header');
+  const nav = document.createElement('nav');
+  const ul = document.createElement('ul');
 
-  const homeBtn = document.createElement("button");
-  homeBtn.textContent = "Home";
-  homeBtn.addEventListener("click", () => loadTab(loadHome));
+  const tabs = ['Home', 'Menu', 'Contact'];
 
-  const menuBtn = document.createElement("button");
-  menuBtn.textContent = "Menu";
-  menuBtn.addEventListener("click", () => loadTab(loadMenu));
+  tabs.forEach(tabName => {
+    const li = document.createElement('li');
+    li.textContent = tabName;
+    li.addEventListener('click', () => {
+      if (tabName === 'Home') loadHome();
+      if (tabName === 'Menu') loadMenu();
+      if (tabName === 'Contact') loadContact();
+    });
+    ul.appendChild(li);
+  });
 
-  const contactBtn = document.createElement("button");
-  contactBtn.textContent = "Contact";
-  contactBtn.addEventListener("click", () => loadTab(loadContact));
-
-  nav.appendChild(homeBtn);
-  nav.appendChild(menuBtn);
-  nav.appendChild(contactBtn);
-
-  return nav;
+  nav.appendChild(ul);
+  header.appendChild(nav);
+  return header;
 }
 
-function loadTab(tabFunction) {
-  const content = document.getElementById("content");
-  content.innerHTML = "";
-  content.appendChild(tabFunction());
+function initializeWebsite() {
+  const content = document.getElementById('content');
+  content.appendChild(createHeader());
+  loadHome(); // default page
 }
 
-function init() {
-  document.body.prepend(createNav());
-  loadTab(loadHome); // default tab
-}
-
-init();
+initializeWebsite();
