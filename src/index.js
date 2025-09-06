@@ -3,6 +3,9 @@ import loadHome from './home.js';
 import loadMenu from './menu.js';
 import loadContact from './contact.js';
 
+// document.addEventListener("DOMContentLoaded", () => {
+//     loadHome(); // run when page loads
+//   });
 // Create header + nav dynamically
 function createHeader() {
   const header = document.createElement('header');
