@@ -3,9 +3,6 @@ import loadHome from './home.js';
 import loadMenu from './menu.js';
 import loadContact from './contact.js';
 
-// document.addEventListener("DOMContentLoaded", () => {
-//     loadHome(); // run when page loads
-//   });
 // Create header + nav dynamically
 function createHeader() {
   const header = document.createElement('header');
@@ -15,14 +12,16 @@ function createHeader() {
   const tabs = ['Home', 'Menu', 'Contact'];
 
   tabs.forEach(tabName => {
-    const li = document.createElement('li');
-    li.textContent = tabName;
-    li.addEventListener('click', () => {
+    const button = document.createElement('button'); // use button, not li
+    button.textContent = tabName;
+
+    button.addEventListener('click', () => {
       if (tabName === 'Home') loadHome();
       if (tabName === 'Menu') loadMenu();
       if (tabName === 'Contact') loadContact();
     });
-    ul.appendChild(li);
+
+    ul.appendChild(button);
   });
 
   nav.appendChild(ul);
@@ -32,8 +31,14 @@ function createHeader() {
 
 function initializeWebsite() {
   const content = document.getElementById('content');
-  content.appendChild(createHeader());
-  loadHome(); // default page
+  const header = createHeader();
+
+  // Insert header first
+  content.appendChild(header);
+
+  // Load default tab
+  loadHome();
 }
 
+// Initialize the site
 initializeWebsite();
